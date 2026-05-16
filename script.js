@@ -266,3 +266,45 @@ setTimeout(() => {
 window.addEventListener("resize", () => {
   map.invalidateSize();
 });
+function showList(type) {
+  const modal = document.getElementById("listModal");
+  const title = document.getElementById("modalTitle");
+  const list = document.getElementById("modalList");
+
+  list.innerHTML = "";
+
+  let items = [];
+
+  if (type === "countries") {
+    title.textContent = "🌍 Países visitados";
+    items = [...new Set(places.map(place => place.country))].sort();
+  }
+
+  if (type === "cities") {
+    title.textContent = "🏙️ Cidades visitadas";
+    items = places
+      .filter(place => place.type === "city")
+      .map(place => `${place.name} — ${place.country}`)
+      .sort();
+  }
+
+  if (type === "states") {
+    title.textContent = "🇧🇷 Estados do Brasil";
+    items = places
+      .filter(place => place.type === "state")
+      .map(place => place.name)
+      .sort();
+  }
+
+  items.forEach(item => {
+    const li = document.createElement("li");
+    li.textContent = item;
+    list.appendChild(li);
+  });
+
+  modal.classList.remove("hidden");
+}
+
+function closeList() {
+  document.getElementById("listModal").classList.add("hidden");
+}
