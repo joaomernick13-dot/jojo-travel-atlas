@@ -236,3 +236,10 @@ map.on("zoomend", updateMapByZoom);
 
 updateStats();
 updateMapByZoom();
+setTimeout(() => {
+  map.invalidateSize();
+}, 500);
+
+window.addEventListener("resize", () => {
+  map.invalidateSize();
+});
