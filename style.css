@@ -133,11 +133,35 @@ main {
   font-size: 16px;
   color: #ff1493;
 }
-
 @media (max-width: 800px) {
-  .app {
-    flex-direction: column;
+  .app{
+    display:block;
   }
+
+  .panel{
+    width:100%;
+    height:auto;
+    max-height:320px;
+    overflow-y:auto;
+    border-radius:0 0 25px 25px;
+    padding:20px;
+  }
+
+  #map{
+    width:100%;
+    height:calc(100vh - 320px);
+  }
+
+  h1{
+    font-size:28px;
+  }
+
+  .stats{
+    display:flex;
+    gap:10px;
+    overflow-x:auto;
+  }
+}
 
   .panel {
     width: 100%;
