@@ -255,3 +255,14 @@ setTimeout(() => {
 setTimeout(() => {
   map.invalidateSize();
 }, 2000);
+setTimeout(() => {
+  map.invalidateSize();
+}, 1000);
+
+setTimeout(() => {
+  map.invalidateSize();
+}, 2000);
+
+window.addEventListener("resize", () => {
+  map.invalidateSize();
+});
