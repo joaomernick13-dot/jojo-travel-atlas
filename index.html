@@ -1,70 +1,88 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Jojo Travel Atlas</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <link rel="apple-touch-icon" href="./icon.png">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css">
-  <link rel="stylesheet" href="./style.css">
+<title>Jojo Travel Atlas</title>
+
+<link rel="apple-touch-icon" href="./icon.png">
+
+<link rel="stylesheet"
+href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+
+<link rel="stylesheet" href="./style.css">
 </head>
 
 <body>
-  <div class="app">
-    <aside class="panel">
-      <h1>💖 Jojo Travel Atlas</h1>
-      <p>Mapa interativo dos lugares visitados.</p>
 
-      <div class="stats">
-        <button class="stat-card" onclick="showList('countries')">
-          <strong id="countryCount">0</strong>
-          <span>países</span>
-        </button>
+<button id="menuToggle">☰ Menu</button>
 
-        <button class="stat-card" onclick="showList('cities')">
-          <strong id="cityCount">0</strong>
-          <span>cidades</span>
-        </button>
+<div class="app">
 
-        <button class="stat-card" onclick="showList('states')">
-          <strong id="stateCount">0</strong>
-          <span>estados BR</span>
-        </button>
-      </div>
+<aside class="panel" id="panel">
 
-      <div id="listModal" class="modal hidden">
-        <div class="modal-content">
-          <button class="close-btn" onclick="closeList()">×</button>
-          <h2 id="modalTitle">Lista</h2>
-          <ul id="modalList"></ul>
-        </div>
-      </div>
+<h1>💖 Jojo Travel Atlas</h1>
+<p>Mapa interativo dos lugares visitados.</p>
 
-      <h2>Adicionar novo lugar</h2>
+<div class="stats">
 
-      <input id="placeName" placeholder="Cidade, estado ou país">
-      <input id="placeCountry" placeholder="País">
+<button class="stat-card">
+<strong id="countryCount">0</strong>
+<span>países</span>
+</button>
 
-      <select id="placeType">
-        <option value="city">Cidade</option>
-        <option value="country">País</option>
-        <option value="state">Estado BR</option>
-      </select>
+<button class="stat-card">
+<strong id="cityCount">0</strong>
+<span>cidades</span>
+</button>
 
-      <button onclick="addPlace()">Adicionar pin ✨</button>
+<button class="stat-card">
+<strong id="stateCount">0</strong>
+<span>estados BR</span>
+</button>
 
-      <small>
-        Dica: escreva “Paris” e “França”, ou “Rio de Janeiro” e “Brasil”.
-      </small>
-    </aside>
+</div>
 
-    <main id="mapContainer">
-      <div id="map"></div>
-    </main>
-  </div>
 
-  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-  <script src="./script.js"></script>
+<h2>Adicionar novo lugar</h2>
+
+<input id="placeName" placeholder="Cidade"/>
+<input id="placeCountry" placeholder="País"/>
+
+<select id="placeType">
+<option value="city">Cidade</option>
+<option value="country">País</option>
+<option value="state">Estado BR</option>
+</select>
+
+<button onclick="addPlace()">
+Adicionar pin ✨
+</button>
+
+
+<h2>Buscar</h2>
+
+<input
+id="search"
+placeholder="Buscar cidade..."
+onkeyup="filterPlaces()"
+/>
+
+<div id="placesList"></div>
+
+</aside>
+
+<main>
+
+<div id="map"></div>
+
+</main>
+
+</div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="./script.js"></script>
+
 </body>
 </html>
