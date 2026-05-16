@@ -11,7 +11,7 @@ const defaultPlaces = [
   { name: "Esslingen am Neckar", country: "Alemanha", type: "city", coords: [48.7433, 9.3201] },
   { name: "Würzburg", country: "Alemanha", type: "city", coords: [49.7913, 9.9534] },
   { name: "Nürnberg", country: "Alemanha", type: "city", coords: [49.4521, 11.0767] },
-  { name: "Munique", country: "Alemanha", type: "city", coords: [48.1351, 11.5820] },
+  { name: "Munique", country: "Alemanha", type: "city", coords: [48.1351, 11.582] },
   { name: "Konstanz", country: "Alemanha", type: "city", coords: [47.6779, 9.1732] },
   { name: "Colônia", country: "Alemanha", type: "city", coords: [50.9375, 6.9603] },
   { name: "Schwangau / Füssen", country: "Alemanha", type: "city", coords: [47.5576, 10.7498] },
@@ -25,15 +25,15 @@ const defaultPlaces = [
   { name: "Pisa", country: "Itália", type: "city", coords: [43.7228, 10.4017] },
   { name: "Verona", country: "Itália", type: "city", coords: [45.4384, 10.9916] },
   { name: "Veneza", country: "Itália", type: "city", coords: [45.4408, 12.3155] },
-  { name: "Milão", country: "Itália", type: "city", coords: [45.4642, 9.1900] },
+  { name: "Milão", country: "Itália", type: "city", coords: [45.4642, 9.19] },
 
   { name: "Cidade do Vaticano", country: "Vaticano", type: "city", coords: [41.9029, 12.4534] },
 
   { name: "Zurique", country: "Suíça", type: "city", coords: [47.3769, 8.5417] },
   { name: "Basel", country: "Suíça", type: "city", coords: [47.5596, 7.5886] },
-  { name: "Kreuzlingen", country: "Suíça", type: "city", coords: [47.6505, 9.1750] },
+  { name: "Kreuzlingen", country: "Suíça", type: "city", coords: [47.6505, 9.175] },
 
-  { name: "Salzburg", country: "Áustria", type: "city", coords: [47.8095, 13.0550] },
+  { name: "Salzburg", country: "Áustria", type: "city", coords: [47.8095, 13.055] },
   { name: "Praga", country: "República Tcheca", type: "city", coords: [50.0755, 14.4378] },
   { name: "Luxemburgo", country: "Luxemburgo", type: "city", coords: [49.6116, 6.1319] },
 
@@ -41,7 +41,7 @@ const defaultPlaces = [
   { name: "Rotterdam", country: "Países Baixos", type: "city", coords: [51.9244, 4.4777] },
   { name: "Haia", country: "Países Baixos", type: "city", coords: [52.0705, 4.3007] },
   { name: "Zaanse Schans", country: "Países Baixos", type: "city", coords: [52.4739, 4.8164] },
-  { name: "Zaandam", country: "Países Baixos", type: "city", coords: [52.4420, 4.8292] },
+  { name: "Zaandam", country: "Países Baixos", type: "city", coords: [52.442, 4.8292] },
   { name: "Breda", country: "Países Baixos", type: "city", coords: [51.5719, 4.7683] },
 
   { name: "Gent", country: "Bélgica", type: "city", coords: [51.0543, 3.7174] },
@@ -49,14 +49,14 @@ const defaultPlaces = [
 
   { name: "Cidade do México", country: "México", type: "city", coords: [19.4326, -99.1332] },
   { name: "Buenos Aires", country: "Argentina", type: "city", coords: [-34.6037, -58.3816] },
-  { name: "Ushuaia", country: "Argentina", type: "city", coords: [-54.8019, -68.3030] },
+  { name: "Ushuaia", country: "Argentina", type: "city", coords: [-54.8019, -68.303] },
   { name: "San José", country: "Costa Rica", type: "city", coords: [9.9281, -84.0907] },
   { name: "Cidade do Panamá", country: "Panamá", type: "city", coords: [8.9824, -79.5199] },
   { name: "Montevideo", country: "Uruguai", type: "city", coords: [-34.9011, -56.1645] },
   { name: "Guatemala City", country: "Guatemala", type: "city", coords: [14.6349, -90.5069] },
 
   { name: "Rio de Janeiro", country: "Brasil", type: "state", coords: [-22.9068, -43.1729] },
-  { name: "Minas Gerais", country: "Brasil", type: "state", coords: [-18.5122, -44.5550] },
+  { name: "Minas Gerais", country: "Brasil", type: "state", coords: [-18.5122, -44.555] },
   { name: "São Paulo", country: "Brasil", type: "state", coords: [-23.5505, -46.6333] },
   { name: "Santa Catarina", country: "Brasil", type: "state", coords: [-27.2423, -50.2189] },
   { name: "Paraná", country: "Brasil", type: "state", coords: [-25.2521, -52.0215] }
@@ -82,25 +82,27 @@ let markers = [];
 let visitedCountriesLayer = null;
 let countriesVisible = false;
 
-const countryNameMap = {
-  "Alemanha": "Germany",
-  "França": "France",
-  "Itália": "Italy",
-  "Vaticano": "Vatican City",
-  "Suíça": "Switzerland",
-  "Áustria": "Austria",
-  "República Tcheca": "Czechia",
-  "Luxemburgo": "Luxembourg",
-  "Países Baixos": "Netherlands",
-  "Bélgica": "Belgium",
-  "México": "Mexico",
-  "Argentina": "Argentina",
-  "Costa Rica": "Costa Rica",
-  "Panamá": "Panama",
-  "Uruguai": "Uruguay",
-  "Guatemala": "Guatemala",
-  "Brasil": "Brazil"
-};
+const visitedCountryNames = [
+  "Germany",
+  "France",
+  "Italy",
+  "Vatican City",
+  "Holy See",
+  "Switzerland",
+  "Austria",
+  "Czechia",
+  "Czech Republic",
+  "Luxembourg",
+  "Netherlands",
+  "Belgium",
+  "Mexico",
+  "Argentina",
+  "Costa Rica",
+  "Panama",
+  "Uruguay",
+  "Guatemala",
+  "Brazil"
+];
 
 function makeHeartIcon() {
   return L.divIcon({
@@ -248,55 +250,77 @@ async function toggleVisitedCountries() {
   if (!countriesVisible) {
     if (visitedCountriesLayer) {
       map.removeLayer(visitedCountriesLayer);
+      visitedCountriesLayer = null;
     }
     return;
   }
 
-  const visitedCountries = new Set(
-    places.map(place => countryNameMap[place.country]).filter(Boolean)
-  );
-
   const geoJsonUrl =
     "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson";
 
-  const response = await fetch(geoJsonUrl);
-  const geojson = await response.json();
+  try {
+    const response = await fetch(geoJsonUrl);
+    const geojson = await response.json();
 
-  if (visitedCountriesLayer) {
-    map.removeLayer(visitedCountriesLayer);
-  }
+    const visitedSet = new Set(
+      visitedCountryNames.map(name => name.toLowerCase())
+    );
 
-  visitedCountriesLayer = L.geoJSON(geojson, {
-    style: feature => {
-      const countryName = feature.properties.ADMIN;
+    visitedCountriesLayer = L.geoJSON(geojson, {
+      style: feature => {
+        const props = feature.properties || {};
 
-      if (visitedCountries.has(countryName)) {
+        const countryName = (
+          props.ADMIN ||
+          props.NAME ||
+          props.name ||
+          props.ADMIN_NAME ||
+          ""
+        ).toLowerCase();
+
+        const isVisited = visitedSet.has(countryName);
+
+        if (isVisited) {
+          return {
+            color: "#ff1493",
+            weight: 2,
+            fillColor: "#ff69b4",
+            fillOpacity: 0.45
+          };
+        }
+
         return {
-          color: "#ff1493",
-          weight: 2,
-          fillColor: "#ff69b4",
-          fillOpacity: 0.45
+          color: "transparent",
+          weight: 0,
+          fillColor: "transparent",
+          fillOpacity: 0
         };
+      },
+
+      onEachFeature: (feature, layer) => {
+        const props = feature.properties || {};
+        const countryName =
+          props.ADMIN ||
+          props.NAME ||
+          props.name ||
+          props.ADMIN_NAME ||
+          "";
+
+        if (visitedCountryNames.includes(countryName)) {
+          layer.bindPopup(`
+            <div class="popup-title">💗 ${countryName}</div>
+            <p>País visitado</p>
+          `);
+        }
       }
+    }).addTo(map);
 
-      return {
-        color: "transparent",
-        weight: 0,
-        fillOpacity: 0
-      };
-    },
+    visitedCountriesLayer.bringToFront();
 
-    onEachFeature: (feature, layer) => {
-      const countryName = feature.properties.ADMIN;
-
-      if (visitedCountries.has(countryName)) {
-        layer.bindPopup(`
-          <div class="popup-title">💗 ${countryName}</div>
-          <p>País visitado</p>
-        `);
-      }
-    }
-  }).addTo(map);
+  } catch (error) {
+    alert("Não consegui carregar os países agora.");
+    console.error(error);
+  }
 }
 
 const menuToggle = document.getElementById("menuToggle");
