@@ -1,9 +1,4 @@
-const saved =
-JSON.parse(
-localStorage.getItem(
-"jojoPlaces"
-)
-)||[];
+
 
 
 let places=[
@@ -50,10 +45,18 @@ country:"Países Baixos",
 coords:[52.4380,4.8260]
 },
 
-...saved
-
+];
 ];
 
+localStorage.removeItem("jojoPlaces");
+
+places = [
+  ...new Map(
+    places.map(place => [place.name, place])
+  ).values()
+];
+
+const map = L.map(
 
 const map=L.map(
 "map"
