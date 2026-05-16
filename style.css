@@ -2,8 +2,10 @@
   box-sizing: border-box;
 }
 
+html,
 body {
   margin: 0;
+  height: 100%;
   font-family: Arial, sans-serif;
   background:
     radial-gradient(circle at 10% 20%, rgba(255,255,255,.9) 0 2px, transparent 3px),
@@ -14,13 +16,14 @@ body {
 
 .app {
   display: flex;
+  width: 100vw;
   height: 100vh;
 }
 
 .panel {
   width: 340px;
   padding: 22px;
-  background: rgba(255, 240, 248, 0.92);
+  background: rgba(255, 240, 248, 0.94);
   backdrop-filter: blur(10px);
   border-right: 3px solid #ff8ccc;
   box-shadow: 0 0 30px rgba(255, 105, 180, .35);
@@ -38,7 +41,8 @@ h2 {
   font-size: 18px;
 }
 
-p, small {
+p,
+small {
   color: #7a3a68;
 }
 
@@ -49,26 +53,32 @@ p, small {
   margin: 18px 0;
 }
 
-.stats div {
+.stats div,
+.stat-card {
   background: #fff;
   border: 2px solid #ffaad6;
   border-radius: 18px;
   text-align: center;
   padding: 10px 6px;
   box-shadow: 0 4px 12px rgba(255, 105, 180, .22);
+  cursor: pointer;
 }
 
-.stats strong {
+.stats strong,
+.stat-card strong {
   display: block;
   font-size: 22px;
   color: #ff1493;
 }
 
-.stats span {
+.stats span,
+.stat-card span {
   font-size: 12px;
+  color: #4b1640;
 }
 
-input, select {
+input,
+select {
   width: 100%;
   padding: 13px;
   margin: 7px 0;
@@ -93,17 +103,15 @@ button {
   box-shadow: 0 5px 18px rgba(255, 20, 147, .35);
 }
 
-button:hover {
-  transform: scale(1.02);
-}
-
 main {
   flex: 1;
+  height: 100vh;
 }
 
-#map {
-  height: 100vh;
+#map,
+#mapContainer {
   width: 100%;
+  height: 100%;
 }
 
 .glitter-pin {
@@ -133,158 +141,81 @@ main {
   font-size: 16px;
   color: #ff1493;
 }
-@media (max-width: 800px) {
-  .app{
-    display:block;
-  }
 
-  .panel{
-    width:100%;
-    height:auto;
-    max-height:320px;
-    overflow-y:auto;
-    border-radius:0 0 25px 25px;
-    padding:20px;
-  }
-
-  #map{
-    width:100%;
-    height:calc(100vh - 320px);
-  }
-
-  h1{
-    font-size:28px;
-  }
-
-  .stats{
-    display:flex;
-    gap:10px;
-    overflow-x:auto;
-  }
-}
-
-  .panel {
-    width: 100%;
-    height: 42vh;
-    border-right: none;
-    border-bottom: 3px solid #ff8ccc;
-  }
-
-  #map {
-    height: 58vh;
-  }
-}
+/* CELULAR */
 @media (max-width: 1200px) {
-  html, body {
-    height: 100%;
-    margin: 0;
+  html,
+  body {
+    overflow: hidden;
   }
 
   .app {
-    display: flex !important;
-    flex-direction: column !important;
-    height: 100vh !important;
+    position: fixed;
+    inset: 0;
+    display: block;
+    width: 100vw;
+    height: 100vh;
   }
 
   .panel {
-    width: 100% !important;
-    height: 40vh !important;
-    max-height: 40vh !important;
-    overflow-y: auto !important;
-    border-right: none !important;
-    border-bottom: 3px solid #ff8ccc !important;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 220px;
+    max-height: 220px;
+    padding: 18px;
+    overflow-y: auto;
+    border-right: none;
+    border-bottom: 3px solid #ff8ccc;
+    border-radius: 0 0 24px 24px;
+    z-index: 9999;
   }
 
-  main {
-    width: 100% !important;
-    height: 60vh !important;
-    display: block !important;
+  h1 {
+    font-size: 24px;
   }
 
-  #map {
-    width: 100% !important;
-    height: 60vh !important;
-    display: block !important;
-  }
-}
-#mapContainer{
-   width:100%;
-   height:65vh;
-   min-height:450px;
-}
-
-#map{
-   width:100%;
-   height:100%;
-   min-height:450px;
-}
-@media (max-width: 1200px) {
-  .panel {
-    height: 34vh !important;
-    max-height: 34vh !important;
-    overflow-y: auto !important;
-    padding: 18px !important;
+  h2 {
+    margin-top: 14px;
+    font-size: 16px;
   }
 
-  main,
-  #map,
-  #mapContainer {
-    height: 66vh !important;
-    min-height: 66vh !important;
+  p,
+  small {
+    font-size: 13px;
+  }
+
+  .stats {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    margin: 12px 0;
+  }
+
+  .stats div,
+  .stat-card {
+    min-width: 80px;
+    padding: 8px;
   }
 
   input,
   select,
   button {
-    padding: 10px !important;
-    margin: 5px 0 !important;
-  }
-
-  h1 {
-    font-size: 28px !important;
-  }
-
-  h2 {
-    margin-top: 14px !important;
-  }
-}
-@media (max-width: 1200px) {
-  html, body {
-    margin: 0 !important;
-    padding: 0 !important;
-    height: 100% !important;
-    overflow: hidden !important;
-  }
-
-  .app {
-    position: fixed !important;
-    inset: 0 !important;
-    display: block !important;
-  }
-
-  .panel {
-    position: absolute !important;
-    top: 0 !important;
-    left: 0 !important;
-    right: 0 !important;
-    height: 210px !important;
-    max-height: 210px !important;
-    width: 100% !important;
-    z-index: 9999 !important;
-    overflow-y: auto !important;
-    border-radius: 0 0 24px 24px !important;
+    padding: 10px;
+    margin: 5px 0;
   }
 
   main,
   #mapContainer,
   #map {
-    position: absolute !important;
-    top: 210px !important;
-    left: 0 !important;
-    right: 0 !important;
-    bottom: 0 !important;
-    width: 100% !important;
-    height: auto !important;
-    min-height: 0 !important;
+    position: absolute;
+    top: 220px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: auto;
+    min-height: 0;
   }
 }
