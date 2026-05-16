@@ -1,0 +1,152 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background:
+    radial-gradient(circle at 10% 20%, rgba(255,255,255,.9) 0 2px, transparent 3px),
+    radial-gradient(circle at 80% 30%, rgba(255,255,255,.8) 0 2px, transparent 3px),
+    linear-gradient(135deg, #ffd1ec, #fff0f8, #ffc2e2);
+  color: #4b1640;
+}
+
+.app {
+  display: flex;
+  height: 100vh;
+}
+
+.panel {
+  width: 340px;
+  padding: 22px;
+  background: rgba(255, 240, 248, 0.92);
+  backdrop-filter: blur(10px);
+  border-right: 3px solid #ff8ccc;
+  box-shadow: 0 0 30px rgba(255, 105, 180, .35);
+  z-index: 999;
+  overflow-y: auto;
+}
+
+h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+h2 {
+  margin-top: 24px;
+  font-size: 18px;
+}
+
+p, small {
+  color: #7a3a68;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 18px 0;
+}
+
+.stats div {
+  background: #fff;
+  border: 2px solid #ffaad6;
+  border-radius: 18px;
+  text-align: center;
+  padding: 10px 6px;
+  box-shadow: 0 4px 12px rgba(255, 105, 180, .22);
+}
+
+.stats strong {
+  display: block;
+  font-size: 22px;
+  color: #ff1493;
+}
+
+.stats span {
+  font-size: 12px;
+}
+
+input, select {
+  width: 100%;
+  padding: 13px;
+  margin: 7px 0;
+  border: 2px solid #ff9bd1;
+  border-radius: 18px;
+  background: #fff;
+  color: #4b1640;
+  font-size: 15px;
+}
+
+button {
+  width: 100%;
+  padding: 14px;
+  margin-top: 8px;
+  border: none;
+  border-radius: 22px;
+  background: linear-gradient(135deg, #ff4fb3, #ff94d2);
+  color: white;
+  font-weight: bold;
+  font-size: 15px;
+  cursor: pointer;
+  box-shadow: 0 5px 18px rgba(255, 20, 147, .35);
+}
+
+button:hover {
+  transform: scale(1.02);
+}
+
+main {
+  flex: 1;
+}
+
+#map {
+  height: 100vh;
+  width: 100%;
+}
+
+.glitter-pin {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff 10%, #ff4fb3 35%, #c2187a 80%);
+  border: 3px solid white;
+  box-shadow:
+    0 0 10px #ff4fb3,
+    0 0 20px rgba(255, 105, 180, .8);
+}
+
+.country-pin {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #ff1493, #ffd700);
+  border: 3px solid white;
+  box-shadow:
+    0 0 14px #ff69b4,
+    0 0 25px rgba(255, 215, 0, .6);
+}
+
+.popup-title {
+  font-weight: bold;
+  font-size: 16px;
+  color: #ff1493;
+}
+
+@media (max-width: 800px) {
+  .app {
+    flex-direction: column;
+  }
+
+  .panel {
+    width: 100%;
+    height: 42vh;
+    border-right: none;
+    border-bottom: 3px solid #ff8ccc;
+  }
+
+  #map {
+    height: 58vh;
+  }
+}

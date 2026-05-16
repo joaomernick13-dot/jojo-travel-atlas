@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>Untitled</title>
+    <link rel='stylesheet' href='https://unpkg.com/leaflet/dist/leaflet.css'><link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <div class="app">
+  <aside class="panel">
+    <h1>💖 Jojo Travel Atlas</h1>
+    <p>Mapa interativo dos lugares visitados.</p>
+
+    <div class="stats">
+      <div><strong id="countryCount">0</strong><span>países</span></div>
+      <div><strong id="cityCount">0</strong><span>cidades</span></div>
+      <div><strong id="stateCount">0</strong><span>estados BR</span></div>
+    </div>
+
+    <h2>Adicionar novo lugar</h2>
+
+    <input id="placeName" placeholder="Cidade, estado ou país" />
+    <input id="placeCountry" placeholder="País" />
+
+    <select id="placeType">
+      <option value="city">Cidade</option>
+      <option value="country">País</option>
+      <option value="state">Estado BR</option>
+    </select>
+
+    <button onclick="addPlace()">Adicionar pin ✨</button>
+
+    <small>
+      Dica: escreva “Paris” e “França”, ou “Rio de Janeiro” e “Brasil”.
+    </small>
+  </aside>
+
+  <main>
+    <div id="map"></div>
+  </main>
+</div>
+    <script src='https://unpkg.com/leaflet/dist/leaflet.js'></script><script  src="./script.js"></script>
+
+  </body>
+  
+</html>
