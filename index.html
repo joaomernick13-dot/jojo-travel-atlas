@@ -15,10 +15,29 @@
     <p>Mapa interativo dos lugares visitados.</p>
 
     <div class="stats">
-      <div><strong id="countryCount">0</strong><span>países</span></div>
-      <div><strong id="cityCount">0</strong><span>cidades</span></div>
-      <div><strong id="stateCount">0</strong><span>estados BR</span></div>
-    </div>
+  <button class="stat-card" onclick="showList('countries')">
+    <strong id="countryCount">0</strong>
+    <span>países</span>
+  </button>
+
+  <button class="stat-card" onclick="showList('cities')">
+    <strong id="cityCount">0</strong>
+    <span>cidades</span>
+  </button>
+
+  <button class="stat-card" onclick="showList('states')">
+    <strong id="stateCount">0</strong>
+    <span>estados BR</span>
+  </button>
+</div>
+
+<div id="listModal" class="modal hidden">
+  <div class="modal-content">
+    <button class="close-btn" onclick="closeList()">×</button>
+    <h2 id="modalTitle">Lista</h2>
+    <ul id="modalList"></ul>
+  </div>
+</div>
 
     <h2>Adicionar novo lugar</h2>
 
