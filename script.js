@@ -301,3 +301,82 @@ async function loadPlacePhoto(place, photoId) {
     img.src = "https://placehold.co/500x300/ffd1ec/ff1493?text=Erro+na+foto";
   }
 }
+let visitedCountriesLayer = null;
+let countriesVisible = false;
+
+const countryNameMap = {
+  "Alemanha": "Germany",
+  "França": "France",
+  "Itália": "Italy",
+  "Vaticano": "Vatican",
+  "Suíça": "Switzerland",
+  "Áustria": "Austria",
+  "República Tcheca": "Czechia",
+  "Luxemburgo": "Luxembourg",
+  "Países Baixos": "Netherlands",
+  "Bélgica": "Belgium",
+  "México": "Mexico",
+  "Argentina": "Argentina",
+  "Costa Rica": "Costa Rica",
+  "Panamá": "Panama",
+  "Uruguai": "Uruguay",
+  "Guatemala": "Guatemala",
+  "Brasil": "Brazil"
+};
+
+async function toggleVisitedCountries() {
+  countriesVisible = !countriesVisible;
+
+  if (!countriesVisible) {
+    if (visitedCountriesLayer) {
+      map.removeLayer(visitedCountriesLayer);
+    }
+    return;
+  }
+
+  const visitedCountries = new Set(
+    places.map(place => countryNameMap[place.country]).filter(Boolean)
+  );
+
+  const geoJsonUrl =
+    "https://raw.githubusercontent.com/datasets/geo-countries/master/data/countries.geojson";
+
+  const response = await fetch(geoJsonUrl);
+  const geojson = await response.json();
+
+  if (visitedCountriesLayer) {
+    map.removeLayer(visitedCountriesLayer);
+  }
+
+  visitedCountriesLayer = L.geoJSON(geojson, {
+    style: feature => {
+      const countryName = feature.properties.ADMIN;
+
+      if (visitedCountries.has(countryName)) {
+        return {
+          color: "#ff1493",
+          weight: 2,
+          fillColor: "#ff69b4",
+          fillOpacity: 0.45
+        };
+      }
+
+      return {
+        color: "transparent",
+        weight: 0,
+        fillOpacity: 0
+      };
+    },
+
+    onEachFeature: (feature, layer) => {
+      const countryName = feature.properties.ADMIN;
+
+      if (visitedCountries.has(countryName)) {
+        layer.bindPopup(`
+          <div class="popup-title">💗 ${countryName}</div>
+          <p>País visitado</p>
+        `);
+      }
+    }
+  }).addTo(map);
+}
