@@ -15,18 +15,19 @@
 
   <div class="app">
     <aside class="panel" id="panel">
+
       <div class="stats">
-        <button class="stat-card">
+        <button class="stat-card" onclick="showList('countries')">
           <strong id="countryCount">0</strong>
           <span>países</span>
         </button>
 
-        <button class="stat-card">
+        <button class="stat-card" onclick="showList('cities')">
           <strong id="cityCount">0</strong>
           <span>cidades</span>
         </button>
 
-        <button class="stat-card">
+        <button class="stat-card" onclick="showList('states')">
           <strong id="stateCount">0</strong>
           <span>estados BR</span>
         </button>
@@ -63,6 +64,14 @@
     <main id="mapContainer">
       <div id="map"></div>
     </main>
+  </div>
+
+  <div id="listModal" class="modal hidden">
+    <div class="modal-content">
+      <button class="close-btn" onclick="closeList()">×</button>
+      <h2 id="modalTitle">Lista</h2>
+      <ul id="modalList"></ul>
+    </div>
   </div>
 
   <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
