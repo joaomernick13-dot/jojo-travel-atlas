@@ -69,6 +69,26 @@ let places = [
   { name: "Paraná", country: "Brasil", type: "state", coords: [-25.2521, -52.0215] }
 ];
 
+// Atualização Jojo Atlas
+// Remove cidades
+["Düsseldorf", "Schaffhausen", "Ludwigsburg"].forEach(nome => {
+  const index = places.findIndex(place => place.name === nome);
+  if (index !== -1) places.splice(index, 1);
+});
+
+// Adiciona novas cidades
+[
+  { name: "Schwetzingen", country: "Alemanha", type: "city", coords: [49.3856, 8.5728] },
+  { name: "Baden-Baden", country: "Alemanha", type: "city", coords: [48.7606, 8.2398] },
+  { name: "Mannheim", country: "Alemanha", type: "city", coords: [49.4875, 8.4660] },
+  { name: "Mainz", country: "Alemanha", type: "city", coords: [49.9929, 8.2473] },
+  { name: "Kreuzlingen", country: "Suíça", type: "city", coords: [47.6505, 9.1750] },
+  { name: "Zaandam", country: "Países Baixos", type: "city", coords: [52.4420, 4.8292] }
+].forEach(novoLugar => {
+  const existe = places.some(place => place.name === novoLugar.name);
+  if (!existe) places.push(novoLugar);
+});
+
 const countryCenters = {
   "Alemanha": [51.1657, 10.4515],
   "França": [46.2276, 2.2137],
