@@ -10,37 +10,36 @@
   <link rel="stylesheet" href="./style.css">
 </head>
 
-
 <body>
   <button id="menuToggle">☰ Menu</button>
 
   <div class="app">
     <aside class="panel" id="panel">
-    <h1>💖 Jojo Travel Atlas</h1>
+      <h1>💖 Jojo Travel Atlas</h1>
 
-<div class="stats">
-  <button class="stat-card">
-    <strong id="countryCount">0</strong>
-    <span>países</span>
-  </button>
+      <div class="stats">
+        <button class="stat-card">
+          <strong id="countryCount">0</strong>
+          <span>países</span>
+        </button>
 
-  <button class="stat-card">
-    <strong id="cityCount">0</strong>
-    <span>cidades</span>
-  </button>
+        <button class="stat-card">
+          <strong id="cityCount">0</strong>
+          <span>cidades</span>
+        </button>
 
-  <button class="stat-card">
-    <strong id="stateCount">0</strong>
-    <span>estados BR</span>
-  </button>
-</div>
+        <button class="stat-card">
+          <strong id="stateCount">0</strong>
+          <span>estados BR</span>
+        </button>
+      </div>
 
-<button onclick="toggleVisitedCountries()">
-  Pintar países visitados
-</button>
+      <button onclick="toggleVisitedCountries()">
+        Pintar países visitados
+      </button>
 
-<h2>Adicionar novo lugar</h2>
-      
+      <h2>Adicionar novo lugar</h2>
+
       <input id="placeName" placeholder="Cidade">
       <input id="placeCountry" placeholder="País">
 
@@ -51,10 +50,6 @@
       </select>
 
       <button onclick="addPlace()">Adicionar pin ✨</button>
-
-      <button onclick="toggleVisitedCountries()">
-        💗 Pintar países visitados
-      </button>
 
       <h2>Buscar</h2>
 
