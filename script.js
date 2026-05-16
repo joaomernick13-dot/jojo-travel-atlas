@@ -243,3 +243,8 @@ setTimeout(() => {
 window.addEventListener("resize", () => {
   map.invalidateSize();
 });
+window.onload = () => {
+   setTimeout(() => {
+      map.invalidateSize();
+   },1000);
+};
