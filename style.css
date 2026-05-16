@@ -174,3 +174,22 @@ main {
     height: 58vh;
   }
 }
+@media (max-width: 800px){
+
+  .app{
+    flex-direction:column !important;
+  }
+
+  .panel{
+    width:100% !important;
+    max-width:100% !important;
+    height:auto;
+    padding:20px;
+  }
+
+  #map{
+    width:100% !important;
+    height:70vh !important;
+  }
+
+}
