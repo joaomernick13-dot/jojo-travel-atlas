@@ -218,3 +218,33 @@ main {
    height:100%;
    min-height:450px;
 }
+@media (max-width: 1200px) {
+  .panel {
+    height: 34vh !important;
+    max-height: 34vh !important;
+    overflow-y: auto !important;
+    padding: 18px !important;
+  }
+
+  main,
+  #map,
+  #mapContainer {
+    height: 66vh !important;
+    min-height: 66vh !important;
+  }
+
+  input,
+  select,
+  button {
+    padding: 10px !important;
+    margin: 5px 0 !important;
+  }
+
+  h1 {
+    font-size: 28px !important;
+  }
+
+  h2 {
+    margin-top: 14px !important;
+  }
+}
