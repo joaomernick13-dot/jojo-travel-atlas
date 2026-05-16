@@ -257,3 +257,11 @@ z-index:999;
   text-decoration: none;
   font-weight: bold;
 }
+.country-label {
+  font-weight: bold;
+  color: #b0005a;
+}
+
+.visited-country-active {
+  background: #ff4fa3;
+}
