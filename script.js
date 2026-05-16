@@ -119,11 +119,23 @@ function drawPlaces() {
       icon: makeHeartIcon()
     }).addTo(map);
 
-    marker.bindPopup(`
-      <div class="popup-title">💖 ${place.name}</div>
-      <p><strong>País:</strong> ${place.country}</p>
-      <p><strong>Tipo:</strong> ${place.type === "state" ? "Estado BR" : "Cidade"}</p>
-    `);
+    const photoId = `photo-${place.name.replace(/\s+/g, "-").replace(/[^\w-]/g, "")}`;
+
+marker.bindPopup(`
+  <div class="popup-card">
+    <img id="${photoId}" class="popup-photo" src="https://placehold.co/500x300/ffd1ec/ff1493?text=Carregando+foto..." />
+    <div class="popup-title">💖 ${place.name}</div>
+    <p><strong>País:</strong> ${place.country}</p>
+    <p><strong>Tipo:</strong> ${place.type === "state" ? "Estado BR" : "Cidade"}</p>
+    <a class="maps-link" target="_blank" href="https://www.google.com/maps/search/${encodeURIComponent(place.name + ', ' + place.country)}">
+      Abrir no Google Maps
+    </a>
+  </div>
+`);
+
+marker.on("popupopen", () => {
+  loadPlacePhoto(place, photoId);
+});
 
     markers.push(marker);
 
@@ -257,3 +269,35 @@ setTimeout(() => {
 window.addEventListener("resize", () => {
   map.invalidateSize();
 });
+
+async function loadPlacePhoto(place, photoId) {
+  const img = document.getElementById(photoId);
+  if (!img) return;
+
+  const query = encodeURIComponent(`${place.name} ${place.country}`);
+
+  const url =
+    `https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${query}&prop=pageimages&piprop=thumbnail&pithumbsize=600&format=json&origin=*`;
+
+  try {
+    const response = await fetch(url);
+    const data = await response.json();
+
+    const pages = data.query?.pages;
+
+    if (!pages) {
+      img.src = "https://placehold.co/500x300/ffd1ec/ff1493?text=Sem+foto";
+      return;
+    }
+
+    const firstPage = Object.values(pages).find(page => page.thumbnail);
+
+    if (firstPage?.thumbnail?.source) {
+      img.src = firstPage.thumbnail.source;
+    } else {
+      img.src = "https://placehold.co/500x300/ffd1ec/ff1493?text=Sem+foto";
+    }
+  } catch (error) {
+    img.src = "https://placehold.co/500x300/ffd1ec/ff1493?text=Erro+na+foto";
+  }
+}
