@@ -260,6 +260,13 @@ async function addPlace() {
 }
 
 function removePlace(name, country) {
+  const confirmDelete = confirm(
+    `Tem certeza que deseja remover ${name} do mapa?`
+  );
+
+  if (!confirmDelete) {
+    return;
+  }
   const removedKey = `${name}|${country}`;
 
   extraPlaces = extraPlaces.filter(
