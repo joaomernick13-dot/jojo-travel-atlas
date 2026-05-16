@@ -209,3 +209,40 @@ main {
     min-height: 100vh;
   }
 }
+.modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(75, 22, 64, 0.45);
+  z-index: 99999;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: 24px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.modal-content {
+  width: min(420px, 92vw);
+  max-height: 78vh;
+  overflow-y: auto;
+  background: #fff0f8;
+  border: 3px solid #ff8ccc;
+  border-radius: 26px;
+  padding: 54px 22px 22px;
+  box-shadow: 0 0 35px rgba(255, 105, 180, 0.5);
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  width: 38px !important;
+  height: 38px;
+  padding: 0 !important;
+  border-radius: 50%;
+  font-size: 24px;
+}
