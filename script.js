@@ -63,13 +63,28 @@ const defaultPlaces = [
 ];
 
 let extraPlaces = JSON.parse(localStorage.getItem("jojoExtraPlaces") || "[]");
-let places = [...defaultPlaces, ...extraPlaces];
+let hiddenPlaces = JSON.parse(localStorage.getItem("jojoHiddenPlaces") || "[]");
 
-places = [
-  ...new Map(
-    places.map(place => [place.name + place.country, place])
-  ).values()
-];
+function placeKey(place) {
+  return `${place.name}|${place.country}`;
+}
+
+function rebuildPlaces() {
+  const visibleDefaultPlaces = defaultPlaces.filter(
+    place => !hiddenPlaces.includes(placeKey(place))
+  );
+
+  places = [...visibleDefaultPlaces, ...extraPlaces];
+
+  places = [
+    ...new Map(
+      places.map(place => [placeKey(place), place])
+    ).values()
+  ];
+}
+
+let places = [];
+rebuildPlaces();
 
 const map = L.map("map").setView([35, 5], 3);
 
@@ -132,9 +147,18 @@ function drawPlaces() {
       <div class="popup-title">💖 ${place.name}</div>
       <p><strong>País:</strong> ${place.country}</p>
       <p><strong>Tipo:</strong> ${place.type === "state" ? "Estado BR" : "Cidade"}</p>
-      <a class="maps-link" target="_blank" href="https://www.google.com/maps/search/${encodeURIComponent(place.name + ", " + place.country)}">
-        Abrir no Google Maps
+
+      <a class="maps-link"
+         target="_blank"
+         href="https://www.google.com/maps/search/${encodeURIComponent(place.name + ", " + place.country)}">
+         Abrir no Google Maps
       </a>
+
+      <button
+        onclick="removePlace('${place.name.replace(/'/g, "\\'")}','${place.country.replace(/'/g, "\\'")}')"
+        style="margin-top:8px;background:#ff5a8f">
+        Remover
+      </button>
     `);
 
     markers.push(marker);
@@ -214,15 +238,18 @@ async function addPlace() {
       return;
     }
 
+    hiddenPlaces = hiddenPlaces.filter(key => key !== placeKey(newPlace));
+
     extraPlaces.push(newPlace);
     localStorage.setItem("jojoExtraPlaces", JSON.stringify(extraPlaces));
+    localStorage.setItem("jojoHiddenPlaces", JSON.stringify(hiddenPlaces));
 
-    places.push(newPlace);
+    rebuildPlaces();
+    drawPlaces();
 
     document.getElementById("placeName").value = "";
     document.getElementById("placeCountry").value = "";
 
-    drawPlaces();
     map.setView(newPlace.coords, 9);
 
     alert(`${name} foi adicionado ao mapa 💖`);
@@ -230,6 +257,36 @@ async function addPlace() {
     alert("Erro ao buscar localização.");
     console.error(error);
   }
+}
+
+function removePlace(name, country) {
+  const removedKey = `${name}|${country}`;
+
+  extraPlaces = extraPlaces.filter(
+    place => placeKey(place) !== removedKey
+  );
+
+  const isDefaultPlace = defaultPlaces.some(
+    place => placeKey(place) === removedKey
+  );
+
+  if (isDefaultPlace && !hiddenPlaces.includes(removedKey)) {
+    hiddenPlaces.push(removedKey);
+  }
+
+  localStorage.setItem("jojoExtraPlaces", JSON.stringify(extraPlaces));
+  localStorage.setItem("jojoHiddenPlaces", JSON.stringify(hiddenPlaces));
+
+  rebuildPlaces();
+  drawPlaces();
+
+  if (visitedCountriesLayer) {
+    map.removeLayer(visitedCountriesLayer);
+    visitedCountriesLayer = null;
+    countriesVisible = false;
+  }
+
+  alert(`${name} removido`);
 }
 
 function filterPlaces() {
@@ -306,9 +363,33 @@ async function toggleVisitedCountries() {
     const response = await fetch(geoJsonUrl);
     const geojson = await response.json();
 
-    const visitedSet = new Set(
-      visitedCountryNames.map(name => name.toLowerCase())
-    );
+    const activeCountries = new Set(places.map(place => place.country));
+
+    const translatedCountries = new Set();
+
+    const translation = {
+      "Alemanha": ["Germany"],
+      "França": ["France"],
+      "Itália": ["Italy"],
+      "Vaticano": ["Vatican City", "Holy See"],
+      "Suíça": ["Switzerland"],
+      "Áustria": ["Austria"],
+      "República Tcheca": ["Czechia", "Czech Republic"],
+      "Luxemburgo": ["Luxembourg"],
+      "Países Baixos": ["Netherlands"],
+      "Bélgica": ["Belgium"],
+      "México": ["Mexico"],
+      "Argentina": ["Argentina"],
+      "Costa Rica": ["Costa Rica"],
+      "Panamá": ["Panama"],
+      "Uruguai": ["Uruguay"],
+      "Guatemala": ["Guatemala"],
+      "Brasil": ["Brazil"]
+    };
+
+    activeCountries.forEach(country => {
+      (translation[country] || []).forEach(name => translatedCountries.add(name.toLowerCase()));
+    });
 
     visitedCountriesLayer = L.geoJSON(geojson, {
       style: feature => {
@@ -322,7 +403,7 @@ async function toggleVisitedCountries() {
           ""
         ).toLowerCase();
 
-        if (visitedSet.has(countryName)) {
+        if (translatedCountries.has(countryName)) {
           return {
             color: "#ff1493",
             weight: 2,
@@ -348,7 +429,7 @@ async function toggleVisitedCountries() {
           props.ADMIN_NAME ||
           "";
 
-        if (visitedCountryNames.includes(countryName)) {
+        if (translatedCountries.has(countryName.toLowerCase())) {
           layer.bindPopup(`
             <div class="popup-title">💗 ${countryName}</div>
             <p>País visitado</p>
