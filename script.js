@@ -248,3 +248,10 @@ window.onload = () => {
       map.invalidateSize();
    },1000);
 };
+setTimeout(() => {
+  map.invalidateSize();
+}, 1000);
+
+setTimeout(() => {
+  map.invalidateSize();
+}, 2000);
