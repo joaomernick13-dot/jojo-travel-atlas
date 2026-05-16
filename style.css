@@ -174,53 +174,36 @@ main {
     height: 58vh;
   }
 }
-@media (max-width: 1200px){
-
-  .app{
-    flex-direction:column !important;
-  }
-
-  .panel{
-    width:100% !important;
-    max-width:100% !important;
-    height:auto;
-    padding:20px;
-  }
-
-  #map{
-    width:100% !important;
-    height:70vh !important;
-  }
-
-}
-@media (max-width: 1200px){
+@media (max-width: 1200px) {
   html, body {
     height: 100%;
     margin: 0;
   }
 
-  .app{
+  .app {
     display: flex !important;
     flex-direction: column !important;
-    min-height: 100vh !important;
+    height: 100vh !important;
   }
 
-  .panel{
+  .panel {
     width: 100% !important;
-    max-width: 100% !important;
-    height: auto !important;
-    max-height: 42vh !important;
+    height: 40vh !important;
+    max-height: 40vh !important;
     overflow-y: auto !important;
+    border-right: none !important;
+    border-bottom: 3px solid #ff8ccc !important;
   }
 
-  main{
-    flex: 1 !important;
-    min-height: 58vh !important;
-  }
-
-  #map{
+  main {
     width: 100% !important;
-    height: 58vh !important;
-    min-height: 420px !important;
+    height: 60vh !important;
+    display: block !important;
+  }
+
+  #map {
+    width: 100% !important;
+    height: 60vh !important;
+    display: block !important;
   }
 }
